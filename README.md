@@ -79,13 +79,32 @@ df_clean = df.drop_duplicates() # remove duplicates
 ```
 - **Justification**: Removing duplicates allows for proper representation of unique data instances. Leaving them in may result in inaccurate or skewed data, therefore resulting in results that does not properly represent the population.
 
-- **Impact**: 
-| Total number of duplicate data rows removed | 2,950 |
+- **Impact**:  2,950 total duplicate data rows removed
 
 ### Issue 4: Outliers
 - **Approach**: Removal
 - **Implementation**
 ```
+# Find IQR
+col = 'population'
+Q1 = df_clean[col].quantile(0.25)
+Q3 = df_clean[col].quantile(0.75)
+
+IQR = Q3 - Q1
+
+# Define lower and upper bounds for detecting outliers
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
+
+# Find all outliers
+outliers = df_clean[(df_clean[col] < lower_bound) | (df_clean[col] > upper_bound)]
+
+# Print the outlier values
+print(f"Outliers in column '{col}':")
+print(outliers)
+
+# Remove outliers in clean dataset
+df_clean = df_clean[(df_clean[col] >= lower_bound) & (df_clean[col] <= upper_bound)] 
 ```
 - **Justification**: Removal of the outliers allows not only readability, but also to prevent distorted or skewed results. Outliers can sometimes greatly impact results highly positively or negatively. This therefore leads to more readable data and more accurate results and summary statistics.
 - **Impact**:
