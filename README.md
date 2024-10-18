@@ -53,8 +53,9 @@ df_clean = df_clean.dropna() # remove rows with null
 - **Justification**: By removing missing data, one can maintain a more consistent dataset without inaccuracies or biased results. If this dataset were to be used for a machine learning model, missing data can also cause difficulties when training, leading to inaccurate predictions.
 
 - **Impact**: 
-| Column Name    | Number of Nulls Removed|
-|----------------|------------------------|
+
+| Column Name    | Number of Nulls Removed |
+| ---------------- | ------------------------ |
 | income_groups  |  6117                  |
 | age            |  6053                  |
 | gender         |  5759                  |
