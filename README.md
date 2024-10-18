@@ -26,14 +26,14 @@
 
 2. **Incorrect Data Types**
 - Description: Variables are listed as the incorrect data type in the dataset.
-- Affected Columns: All columns are affected
-- Example: age is listed as a float when it should be a categorical variable
+- Affected Columns: Population, Age, Gender, Year
+- Example: Age is listed as a float when it should be a categorical variable
 - Potential Impact: may result in incorrect analysis and summary statistics, along with calculations that do not make sense. 
 
 3. **Duplicated Data**
 - Description: Some rows of the dataset are duplicates.
 - Affected Columns: All columns are affected
-- Example: 
+- Example: high_income,0.0,2.0,2095.0,5353296.0
 - Potential Impact: May lead to skewed data, for some of the information will have multiple inputs when calculating summary statistics.
 
 4. **Outliers**
@@ -89,7 +89,7 @@ print('Data types after cleaning: ') # check output
 print(df_clean.info())
 ```
 - **Justification**: By correcting the incorrect data types, this allows for correct interpretation of the results, which therefore leads to sensible summary statistics. If we were to leave the data types as they are, we would get results that do not make sense (i.e. the average of gender)
-- **Impact**: 
+- **Impact**: Gender no longer has a mean, standard deviation, other statistical summary results. Gender and income groups may now be used to sort data into groups. Finally, proper data type selection allows aggregation of data tables.
 
 ### Issue 3: Duplicated Data
 - **Approach**: Removal
@@ -130,5 +130,12 @@ df_clean = df_clean[(df_clean[col] >= lower_bound) & (df_clean[col] <= upper_bou
 - **Impact**: As illustrated by the box plot below, by removing outliers, it allows the plot to be more readable and illustrate the data more cleanly.
 
 ![Population Outliers Boxplot](/populationPlot.png)
+
+## 3. Final State Analysis
+I cleaned this dataset by removing missing values, removing outliers, removing, removing duplicates, and setting proper data types. Although after all of these actions the dataset is much smaller, it is now a dataset that is representative of the population and free from any data that may skew or the data. Therefore, any results found with the dataset will be more accurate and unbiased.
+
+When cleaning, I found it difficult to determine where to start because there were so many different steps that needed to be done. It was very helpful to start by looking at the data summary using the pandas ```describe()``` and ```info()``` functions.
+
+
 
 
