@@ -107,6 +107,6 @@ print(outliers)
 df_clean = df_clean[(df_clean[col] >= lower_bound) & (df_clean[col] <= upper_bound)] 
 ```
 - **Justification**: Removal of the outliers allows not only readability, but also to prevent distorted or skewed results. Outliers can sometimes greatly impact results highly positively or negatively. This therefore leads to more readable data and more accurate results and summary statistics.
-- **Impact**:
+- **Impact**: ![Population Outliers Boxplot](/populationPlot.png)
 
 
