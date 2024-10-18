@@ -13,6 +13,9 @@ print(df.describe())
 print(df.info())
 print('Shape:', df.shape)
 
+unique_counts = df.nunique()
+print(unique_counts)
+
 # check duplicates
 print('Before cleaning duplicate count:', df.duplicated().sum())
 df_clean = df.drop_duplicates() # remove duplicates
@@ -53,27 +56,50 @@ outliers = df_clean[(df_clean[col] < lower_bound) | (df_clean[col] > upper_bound
 print(f"Outliers in column '{col}':")
 print(outliers)
 
-# Boxplots for 'age' column before and after cleaning
+# Boxplots for population
 plt.figure(figsize=(10, 5))
 
-plt.subplot(1, 2, 1)
+# before cleaning boxplot
+plt.subplot(1, 2, 1) # create plot on left
 sns.boxplot(y=df['population'], 
             color='orchid', 
             linecolor='black',
             linewidth=0.75
             )
-plt.title('Population Distribution Before Cleaning')
+plt.title('Population Distribution Before Cleaning') # add title to plot
 
-plt.subplot(1, 2, 2)
+# after cleaning boxplot
+plt.subplot(1, 2, 2) #plot on right
 sns.boxplot(y=df_clean['population'], 
             color='orchid', 
             linecolor='black',
             linewidth=0.75
             )
-plt.title('Population Distribution After Cleaning')
+plt.title('Population Distribution After Cleaning') # add title to plot
 
-plt.tight_layout()
-plt.savefig('populationPlot.png')
+plt.tight_layout() # frame margins even on all sides
+plt.savefig('populationPlot.png')# save image as png
+
+# Fixing data types
+# Gender: float -> categorical
+gender_mapping = {1: 'Male', 2: 'Female', 3: 'Non-binary'} # Map to gender labels
+df_clean['gender'] = df_clean['gender'].map(gender_mapping)
+df_clean['gender'] = df_clean['gender'].astype('category') # convert to categorical
+
+# Population: float -> int
+df_clean['population'] = df_clean['population'].astype(int)
+
+# Year: float -> int
+df_clean['year'] = df_clean['year'].astype(int)
+
+# Age: float -> int
+df_clean['age'] = df_clean['age'].astype(int)
+
+# Income_groups: object -> categorical
+df_clean['income_groups'] = df_clean['income_groups'].astype('category') # convert to categorical
+
+print('Data types after cleaning: ') # check output
+print(df_clean.info())
 
 
 

@@ -10,33 +10,33 @@
 ### Column Details
 | Column Name   | Data Type | Non-Null Count | Unique Values |  Mean   |
 |---------------|-----------|----------------|---------------|---------|
-| income_groups | object    | 119412         | ...           | ...     |
-| age           | float64   | 119495         | ...           | 50.007  |
-| gender        | float64   | 119811         | ...           | 1.579   |
-| year          | float64   | 119518         | ...           | 2025.068|
-| population    | float64   | 119378         | ...           | 1.113   |
+| income_groups | object    | 119412         | 8             | -       |
+| age           | float64   | 119495         | 101           | 50.007  |
+| gender        | float64   | 119811         | 3             | 1.579   |
+| year          | float64   | 119518         | 169           | 2025.068|
+| population    | float64   | 119378         | 114925        | 1.113e8 |
 
 ### Identified Issues
 
-1. **[Missing Values]**
+1. **Missing Values**
 - Description: There are missing values in all of the columns, where their values are null. 
 - Affected Columns: All columns are affected
 - Example: high_income,0.0,1.0,1979.0,nan
 - Potential Impact: may result in incorrect summary statistics and analysis of the data
 
-2. **[Incorrect Data Types]**
+2. **Incorrect Data Types**
 - Description: Variables are listed as the incorrect data type in the dataset.
 - Affected Columns: All columns are affected
 - Example: age is listed as a float when it should be a categorical variable
 - Potential Impact: may result in incorrect analysis and summary statistics, along with calculations that do not make sense. 
 
-3. **[Duplicated Data]**
+3. **Duplicated Data**
 - Description: Some rows of the dataset are duplicates.
 - Affected Columns: All columns are affected
 - Example: 
 - Potential Impact: May lead to skewed data, for some of the information will have multiple inputs when calculating summary statistics.
 
-4. **[Outliers**]
+4. **Outliers**
 - Description: Columns may have outliers, which should be removed from the dataset
 - Affected: Population Column
 - Example: high_income,,1.0,1995.0,6780019000.0
@@ -67,9 +67,29 @@ df_clean = df_clean.dropna() # remove rows with null
 - **Approach**: correction of data types
 - **Implementation**:
 ```
+# Fixing data types
+# Gender: float -> categorical
+gender_mapping = {1: 'Male', 2: 'Female', 3: 'Non-binary'} # Map to gender labels
+df_clean['gender'] = df_clean['gender'].map(gender_mapping)
+df_clean['gender'] = df_clean['gender'].astype('category') # convert to categorical
+
+# Population: float -> int
+df_clean['population'] = df_clean['population'].astype(int)
+
+# Year: float -> int
+df_clean['year'] = df_clean['year'].astype(int)
+
+# Age: float -> int
+df_clean['age'] = df_clean['age'].astype(int)
+
+# Income_groups: object -> categorical
+df_clean['income_groups'] = df_clean['income_groups'].astype('category') # convert to categorical
+
+print('Data types after cleaning: ') # check output
+print(df_clean.info())
 ```
 - **Justification**: By correcting the incorrect data types, this allows for correct interpretation of the results, which therefore leads to sensible summary statistics. If we were to leave the data types as they are, we would get results that do not make sense (i.e. the average of gender)
-- **Impact**:
+- **Impact**: 
 
 ### Issue 3: Duplicated Data
 - **Approach**: Removal
@@ -107,6 +127,8 @@ print(outliers)
 df_clean = df_clean[(df_clean[col] >= lower_bound) & (df_clean[col] <= upper_bound)] 
 ```
 - **Justification**: Removal of the outliers allows not only readability, but also to prevent distorted or skewed results. Outliers can sometimes greatly impact results highly positively or negatively. This therefore leads to more readable data and more accurate results and summary statistics.
-- **Impact**: ![Population Outliers Boxplot](/populationPlot.png)
+- **Impact**: As illustrated by the box plot below, by removing outliers, it allows the plot to be more readable and illustrate the data more cleanly.
+
+![Population Outliers Boxplot](/populationPlot.png)
 
 
