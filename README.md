@@ -77,5 +77,17 @@ df_clean = df_clean.dropna() # remove rows with null
 ```
 df_clean = df.drop_duplicates() # remove duplicates
 ```
+- **Justification**: Removing duplicates allows for proper representation of unique data instances. Leaving them in may result in inaccurate or skewed data, therefore resulting in results that does not properly represent the population.
+
+- **Impact**: 
+| Total number of duplicate data rows removed | 2,950 |
+
+### Issue 4: Outliers
+- **Approach**: Removal
+- **Implementation**
+```
+```
+- **Justification**: Removal of the outliers allows not only readability, but also to prevent distorted or skewed results. Outliers can sometimes greatly impact results highly positively or negatively. This therefore leads to more readable data and more accurate results and summary statistics.
+- **Impact**:
 
 
