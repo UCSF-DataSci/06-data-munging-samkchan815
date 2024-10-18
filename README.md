@@ -136,6 +136,24 @@ I cleaned this dataset by removing missing values, removing outliers, removing, 
 
 When cleaning, I found it difficult to determine where to start because there were so many different steps that needed to be done. It was very helpful to start by looking at the data summary using the pandas ```describe()``` and ```info()``` functions.
 
+Through this process, not only did I learn how time consuming it is to clean data, I also learned its importance. By seeing the impact of each cleaning step of the process, I slowly saw a much cleaner dataset come into view, and how much better it is compared to the dirty dataset.
+
+Next steps would be to clean up the steps of cleaning the data to be more efficient. In terms of using the data, this data could potentially be used to train a machine learning model to make future predictions.
+
+### Clean Data Overview
+- **Name**: clean_population_data.csv
+- **Rows**: 93611
+- **Columns**: 5
+
+### Clean Column Details
+| Column Name   | Data Type | Non-Null Count | Unique Values |  Mean   |
+|---------------|-----------|----------------|---------------|---------|
+| income_groups | category  | 93611          | 8             | -       |
+| age           | int64     | 93611          | 101           | 50.120  |
+| gender        | category  | 93611          | 3             | -       |
+| year          | int64     | 93611          | 169           | 2025.118|
+| population    | int64     | 93611          | 92342         | 9.235   |
+
 
 
 
